@@ -14,18 +14,13 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
 		JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
 		jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(new KeycloakRoleConverter());
-	 
-		http
-			.authorizeRequests()
-					.antMatchers(HttpMethod.GET, "/users/status/check") 
-					//.hasAuthority("SCOPE_profile")
-					.hasRole("developer")
-					//.hasAnyRole("devleoper","user")
-				.anyRequest().authenticated()
-				.and()
-			.oauth2ResourceServer()
-			.jwt()
-			.jwtAuthenticationConverter(jwtAuthenticationConverter);
+
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/users/status/check")
+				// .hasAuthority("SCOPE_profile")
+				.hasRole("developer")
+				// .hasAnyRole("devleoper","user")
+				.anyRequest().authenticated().and().oauth2ResourceServer().jwt()
+				.jwtAuthenticationConverter(jwtAuthenticationConverter);
 	}
 
 }
